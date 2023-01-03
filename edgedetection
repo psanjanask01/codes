@@ -1,0 +1,37 @@
+% importing the image
+I = rgb2gray(imread("leaf.jpeg"));
+subplot(2, 2, 1),
+imshow(I);
+title("Gray Scale Image");
+% Log Edge Detection = Laplacian of Gaussian Filter = LoG
+M = edge(I, 'log');
+subplot(2, 2, 2),
+imshow(M);
+title("Log");
+% Canny Edge Detection
+N = edge(I, 'Canny');
+subplot(2, 2, 3),
+imshow(N);
+title("Canny");
+%% Edge detection using homogeneity operator
+% Ref: A new homogeneity-based approach to edge detection using PSO
+% Mahdi Setayesh, Mengjie Zhang and Mark Johnston
+img=I;
+[m,n]=size(img);
+newimg=zeros(m,n);
+for i=2:m-1
+ for j=2:n-1
+ newimg(i,j)=max([abs(img(i,j)-img(i-1,j-1)),...
+ abs(img(i,j)-img(i,j-1)),...
+ abs(img(i,j)-img(i-1,j)),...
+ abs(img(i,j)-img(i+1,j+1)),...
+ abs(img(i,j)-img(i+1,j)),...
+ abs(img(i,j)-img(i,j+1)),...
+ abs(img(i,j)-img(i+1,j-1)),...
+ abs(img(i,j)-img(i-1,j+1))]);
+ end
+end
+th=graythresh(img)*max(img(:)); % threshold calculation by otsu method
+subplot(2,2,4);
+imshow(newimg>th/4);
+title('Otsu');
