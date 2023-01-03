@@ -1,0 +1,20 @@
+img = imread('sunflower.jpg');
+gray_img = rgb2gray(img);
+gray_img=double(gray_img);
+%Gausian Filter
+psf = fspecial('gaussian',[5 5],2); %(gaussianlowpassfilter,size,stddeviation)
+%Motion Filter
+motion_filter = fspecial('motion',10,45); %(,length,angleofmotion)
+%Convolution of Image using Gausian Filter
+convolution_gf = conv2(psf,gray_img);
+%convolution of Image using Motion Filter
+convolution_motion = imfilter(gray_img,motion_filter,'replicate');
+self_conv = conv2(gray_img,gray_img);
+subplot(2,2,1), imshow(img);
+title('Original Image');
+subplot(2,2,2), imshow(convolution_gf,[]);
+title('Gaussian Filter');
+subplot(2,2,3), imshow(convolution_motion,[]);
+title('Motion Filter');
+subplot(2,2,4), imshow(self_conv,[]);
+title('Self convolution');
