@@ -1,0 +1,24 @@
+clear all
+close all
+warning off;
+x=imread('sunflower.jpg');
+subplot(3,2,1);
+imshow(x);
+title('Original Image');
+subplot(3,2,2);
+imhist(x);
+title('Histogram of the Original Image');
+j=histeq(x);
+subplot(3,2,3);
+imshow(j);
+title('Image after applying Global histogram equalization');
+subplot(3,2,4);
+imhist(j);
+title('Histogram of the Image after applying Global histogram equalization');
+j=adapthisteq(x);
+subplot(3,2,5);
+imshow(j);
+title('Image after applying Local histogram equalization');
+subplot(3,2,6);
+imhist(j);
+title('Histogram of the Image after applying Local histogram equalization');
