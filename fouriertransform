@@ -1,0 +1,14 @@
+I = imread("cameraman.png"); % image of size 256x256
+I = im2double(I);
+F = fspecial("average",3); % average filter of size 3x3
+Ipad = padarray(I,[3-1 3-1],0 ,"post"); % zero padding
+Fpad = padarray(F,[256-1 256-1],0,"post"); % zero padding
+Ifft = fft2(Ipad);
+Ffft = fft2(Fpad);
+Offt = Ifft.*Ffft;
+Opad = ifft2(Offt);
+O = Opad(2:end-1,2:end-1); % remove padding
+subplot(1,2,1);
+imshow(I); title('Before');
+subplot(1,2,2);
+imshow(O); title('After');
