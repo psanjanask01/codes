@@ -1,0 +1,19 @@
+I = imread('coins.jpg');
+figure
+subplot(1,3,1),imshow(I)
+%for uniform reading
+se = strel('disk',35);
+backgnd = imopen(I,se); % performs morphological opening on image-erosion and dilation
+I2 = I - backgnd;
+subplot(1,3,2),imshow(I2)
+%contrast enhancing
+I4 = rgb2gray(I2);
+I3 = imadjust(I4);
+bw = imbinarize(I3);
+bw = bwareaopen(bw,50); %remove connected objects with less than 50 pixels
+cc = bwconncomp(bw,4); %finds and counts connected components
+cc.NumObjects
+coin=false(size(bw)); %array of logical zeros of size bw array
+coin(cc.PixelIdxList{5})=true; %linear indices of the locations in the image of where your object is located.
+subplot(1,3,3),imshow(coin)
+
