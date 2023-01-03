@@ -1,0 +1,10 @@
+rgbim=imread("xyz.jpg");
+rgbim=im2double(rgbim);
+window_width=15;
+width_square=window_width*window_width;
+kernel=ones(window_width)/width_square;
+blur_img=imfilter(rgbim,kernel);
+subplot(2,2,1);
+imshow(rgbim);
+subplot(2,2,2);
+imshow(blur_img);
