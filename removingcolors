@@ -1,0 +1,16 @@
+i=imread('sunflower.jpg');
+gray=rgb2gray(i);
+red=i;
+red(:,:,1)=0;
+blue=i;
+blue(:,:,2)=0;
+green=i;
+green(:,:,3)=0;
+subplot(2,2,1);
+imshow(i);
+subplot(2,2,2);
+imshow(red);
+subplot(2,2,3);
+imshow(blue);
+subplot(2,2,4);
+imshow(green)
